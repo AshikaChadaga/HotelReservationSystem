@@ -32,26 +32,27 @@ public class Hotel {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	
+
 	public double getWeekdayRegularCustomerCost() {
 		return weekdayRegularCustomerCost;
 	}
-	
+
 	public void setWeekdayRegularCustomerCost(double weekdayRegularCustomerCost) {
 		this.weekdayRegularCustomerCost = weekdayRegularCustomerCost;
 	}
-	
+
 	public double getWeekendRegularCustomerCost() {
 		return weekendRegularCustomerCost;
 	}
-	
+
 	public void setWeekendRegularCustomerCost(double weekendRegularCustomerCost) {
 		this.weekendRegularCustomerCost = weekendRegularCustomerCost;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Hotels [hotelName=" + hotelName + ", rating=" + rating + ", Regular Customer WeekDay Cost="+ weekdayRegularCustomerCost+ "Regular Customer WeekDay Cost="+ weekdayRegularCustomerCost +"]\n";
+		return "Hotels [hotelName=" + hotelName + ", rating=" + rating + ", Regular Customer WeekDay Cost="
+				+ weekdayRegularCustomerCost + "Regular Customer WeekDay Cost=" + weekdayRegularCustomerCost + "]\n";
 	}
 
 }
