@@ -17,13 +17,15 @@ public class HotelReservation implements HotelReservationIF {
 	public static double cheapestPrice;
 
 	public void addHotel(String hotelName, int rating, double weekdayRegularCustomerCost,
-			double weekendRegularCustomerCost) {
+			double weekendRegularCustomerCost, double weekdayRewardCustomerCost, double weekendRewardCustomerCost) {
 
 		hotel = new Hotel();
 		hotel.setHotelName(hotelName);
 		hotel.setRating(rating);
 		hotel.setWeekdayRegularCustomerCost(weekdayRegularCustomerCost);
 		hotel.setWeekendRegularCustomerCost(weekendRegularCustomerCost);
+		hotel.setWeekdayRewardCustomerCost(weekdayRewardCustomerCost);
+		hotel.setWeekendRewardCustomerCost(weekendRewardCustomerCost);
 		hotelList.add(hotel);
 		System.out.println("Successfully ADDED !!");
 	}
@@ -45,7 +47,7 @@ public class HotelReservation implements HotelReservationIF {
 		ArrayList<Integer> durationDetails = new ArrayList<Integer>();
 		int numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate) + 1;
 		int weekends = 0;
-		
+
 		while (startDate.compareTo(endDate) != 0) {
 			switch (DayOfWeek.of(startDate.get(ChronoField.DAY_OF_WEEK))) {
 			case SATURDAY:
@@ -76,7 +78,8 @@ public class HotelReservation implements HotelReservationIF {
 		cheapestPrice = hotelList.stream()
 				.mapToDouble(hotel -> ((hotel.getWeekendRegularCustomerCost() * weekendsNumber)
 						+ hotel.getWeekdayRegularCustomerCost() * weekdaysNumber))
-				.min().orElse(Double.MAX_VALUE);
+				.min()
+				.orElse(Double.MAX_VALUE);
 
 		ArrayList<Hotel> cheapestHotel = hotelList.stream()
 				.filter(hotel -> (hotel.getWeekendRegularCustomerCost() * weekendsNumber
@@ -99,7 +102,7 @@ public class HotelReservation implements HotelReservationIF {
 		ArrayList<Hotel> cheapestHotels = getCheapestHotel(startDate, endDate);
 		Optional<Hotel> sortedHotelList = cheapestHotels.stream()
 				.max(Comparator.comparing(Hotel::getRating));
-		
+
 		System.out.println("Cheapest Best Rated Hotel : \n" + sortedHotelList.get().getHotelName() + ", Total Rates: "
 				+ cheapestPrice);
 		return sortedHotelList.get();
@@ -110,15 +113,15 @@ public class HotelReservation implements HotelReservationIF {
 		ArrayList<Integer> durationDetails = getDurationOfStayDetails(startDate, endDate);
 		int weekdaysNumber = durationDetails.get(0);
 		int weekendsNumber = durationDetails.get(1);
-		
+
 		Optional<Hotel> sortedHotelList = hotelList.stream()
 				.max(Comparator.comparing(Hotel::getRating));
-		
+
 		double totalPrice = weekdaysNumber * sortedHotelList.get().getWeekdayRegularCustomerCost()
 				+ weekendsNumber * sortedHotelList.get().getWeekendRegularCustomerCost();
-		
-		System.out.println(
-				"Best Rated Hotel : \n" + sortedHotelList.get().getHotelName() + ", Total Rates: " + totalPrice);
+
+		System.out.println("Best Rated Hotel : \n" + sortedHotelList.get().getHotelName() + ", Rating : "
+				+ sortedHotelList.get().getRating() + ", Total Rates: " + totalPrice);
 		return sortedHotelList.get();
 	}
 
