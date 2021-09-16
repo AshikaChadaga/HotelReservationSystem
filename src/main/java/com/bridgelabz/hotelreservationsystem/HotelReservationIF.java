@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public interface HotelReservationIF {
 
 	public void addHotel(String hotelName, int rating, double weekdayRegularCustomerCost,
-			double weekendRegularCustomerCost);
+			double weekendRegularCustomerCost, double weekdayRewardCustomerCost, double weekendRewardCustomerCost);
 
 	public int getHotelListSize();
 
