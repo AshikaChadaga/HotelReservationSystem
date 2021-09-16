@@ -84,15 +84,21 @@ public class HotelReservationTest {
 		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
 		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
 		
-		//2021-10-11 2021-10-12
-		LocalDate userStartDate = LocalDate.parse(hotelReservation.getDates());
-		LocalDate userEndDate = LocalDate.parse(hotelReservation.getDates());
-		LocalDate startDate = LocalDate.of(userStartDate.getYear(), userStartDate.getMonth(), userStartDate.getDayOfMonth());
-		LocalDate endDate = LocalDate.of(userEndDate.getYear(), userEndDate.getMonth(), userEndDate.getDayOfMonth());
+		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
+		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
+		String startDateToValidate = startDate.toString();
+		String endDateToValidate = endDate.toString();
+		boolean isValidStartDate = hotelReservation.validateDate(startDateToValidate);
+		boolean isValidEndDate = hotelReservation.validateDate(endDateToValidate);
 		
-		ArrayList<Hotel> hotel = hotelReservation.getCheapestHotel("regular", startDate, endDate);
-		String hotelName = hotel.get(0).getHotelName() + " " + hotel.get(1).getHotelName();
-		Assert.assertEquals("Lakewood Bridgewood", hotelName);
+		if(isValidStartDate && isValidEndDate) {
+			ArrayList<Hotel> hotel = hotelReservation.getCheapestHotel("regular", startDate, endDate);
+			String hotelName = hotel.get(0).getHotelName() + " " + hotel.get(1).getHotelName();
+			Assert.assertEquals("Lakewood Bridgewood", hotelName);
+		}
+		else {
+			System.out.println("Not Valid Start Or End date");
+		}
 	}
 
 	@Test
@@ -102,14 +108,20 @@ public class HotelReservationTest {
 		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
 		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
 		
-		//2021-10-11 2021-10-12
-		LocalDate userStartDate = LocalDate.parse(hotelReservation.getDates());
-		LocalDate userEndDate = LocalDate.parse(hotelReservation.getDates());
-		LocalDate startDate = LocalDate.of(userStartDate.getYear(), userStartDate.getMonth(), userStartDate.getDayOfMonth());
-		LocalDate endDate = LocalDate.of(userEndDate.getYear(), userEndDate.getMonth(), userEndDate.getDayOfMonth());
+		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
+		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
+		String startDateToValidate = startDate.toString();
+		String endDateToValidate = endDate.toString();
+		boolean isValidStartDate = hotelReservation.validateDate(startDateToValidate);
+		boolean isValidEndDate = hotelReservation.validateDate(endDateToValidate);
 		
-		Hotel hotel = hotelReservation.getCheapestBestRatedHotel("regular", startDate, endDate);
-		Assert.assertEquals("Bridgewood", hotel.getHotelName());
+		if(isValidStartDate && isValidEndDate) {
+			Hotel hotel = hotelReservation.getCheapestBestRatedHotel("regular", startDate, endDate);
+			Assert.assertEquals("Bridgewood", hotel.getHotelName());
+		}	
+		else {
+			System.out.println("Not Valid Start Or End date");
+		}
 	}
 
 	@Test
@@ -119,15 +131,21 @@ public class HotelReservationTest {
 		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
 		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
 		hotelReservation.addHotel("Ridgewood", 5, 220, 150, 100, 40);
-
-		// 2021-10-11 2021-10-12
-		LocalDate userStartDate = LocalDate.parse(hotelReservation.getDates());
-		LocalDate userEndDate = LocalDate.parse(hotelReservation.getDates());
-		LocalDate startDate = LocalDate.of(userStartDate.getYear(), userStartDate.getMonth(),userStartDate.getDayOfMonth());
-		LocalDate endDate = LocalDate.of(userEndDate.getYear(), userEndDate.getMonth(), userEndDate.getDayOfMonth());
-
-		Hotel hotel = hotelReservation.getBestRatedHotel("regular", startDate, endDate);
-		Assert.assertEquals("Ridgewood", hotel.getHotelName());
+		
+		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
+		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
+		String startDateToValidate = startDate.toString();
+		String endDateToValidate = endDate.toString();
+		boolean isValidStartDate = hotelReservation.validateDate(startDateToValidate);
+		boolean isValidEndDate = hotelReservation.validateDate(endDateToValidate);
+		
+		if(isValidStartDate && isValidEndDate) {
+			Hotel hotel = hotelReservation.getBestRatedHotel("regular", startDate, endDate);
+			Assert.assertEquals("Ridgewood", hotel.getHotelName());
+		}
+		else {
+			System.out.println("Not Valid Start Or End date");
+		}
 	}
 
 	@Test
