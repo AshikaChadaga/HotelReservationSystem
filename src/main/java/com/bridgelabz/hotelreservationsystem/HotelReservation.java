@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 public class HotelReservation implements HotelReservationIF {
@@ -35,9 +36,9 @@ public class HotelReservation implements HotelReservationIF {
 		return hotelList;
 	}
 
-	public String getCheapestHotel(LocalDate startDate, LocalDate endDate) {
+	public ArrayList<Hotel> getCheapestHotel(LocalDate startDate, LocalDate endDate) {
 
-		int numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+		int numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate)+1;
         int weekends = 0;
         
 		while (startDate.compareTo(endDate) != 0) {
@@ -65,9 +66,11 @@ public class HotelReservation implements HotelReservationIF {
 				.collect(Collectors.toCollection(ArrayList::new));
 		
         if (cheapestPrice != Double.MAX_VALUE) {
-        	
-        	System.out.println("Cheapest Hotel : \n" + cheapestHotel.get(0).getHotelName() + ", Total Rates: " + cheapestPrice);
-        	return cheapestHotel.get(0).getHotelName();
+        	Iterator<Hotel> iterator = cheapestHotel.iterator();
+        	while(iterator.hasNext()) {
+        		System.out.println("Cheapest Hotel : \n" + iterator.next().getHotelName() + ", Total Rates: " + cheapestPrice);
+        	}
+        	return cheapestHotel;
         }
         return null;
 	}
