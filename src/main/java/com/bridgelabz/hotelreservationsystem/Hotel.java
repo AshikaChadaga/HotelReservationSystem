@@ -2,13 +2,12 @@ package com.bridgelabz.hotelreservationsystem;
 
 public class Hotel {
 
-	String hotelName;
-	int rating;
-	double weekdayRegularCustomerCost;
-	double weekendRegularCustomerCost;
+	private String hotelName;
+	private int rating;
+	private double weekdayRegularCustomerCost;
+	private double weekendRegularCustomerCost;
 
 	public Hotel() {
-
 	}
 
 	public Hotel(String hotelName, int rating, double weekdayRegularCustomerCost, double weekdayRewardCustomerCost,
