@@ -69,22 +69,38 @@ public class HotelReservation implements HotelReservationIF {
 
 	}
 
-	public ArrayList<Hotel> getCheapestHotel(LocalDate startDate, LocalDate endDate) {
+	public ArrayList<Hotel> getCheapestHotel(String customerType, LocalDate startDate, LocalDate endDate) {
 
 		ArrayList<Integer> durationDetails = getDurationOfStayDetails(startDate, endDate);
 		int weekdaysNumber = durationDetails.get(0);
 		int weekendsNumber = durationDetails.get(1);
-
-		cheapestPrice = hotelList.stream()
-				.mapToDouble(hotel -> ((hotel.getWeekendRegularCustomerCost() * weekendsNumber)
-						+ hotel.getWeekdayRegularCustomerCost() * weekdaysNumber))
-				.min()
-				.orElse(Double.MAX_VALUE);
-
-		ArrayList<Hotel> cheapestHotel = hotelList.stream()
-				.filter(hotel -> (hotel.getWeekendRegularCustomerCost() * weekendsNumber
-						+ hotel.getWeekdayRegularCustomerCost() * weekdaysNumber) == cheapestPrice)
-				.collect(Collectors.toCollection(ArrayList::new));
+		ArrayList<Hotel> cheapestHotel = new ArrayList<Hotel>();
+		
+		if(customerType.equalsIgnoreCase("Regular")) {
+			
+			cheapestPrice = hotelList.stream()
+					.mapToDouble(hotel -> ((hotel.getWeekendRegularCustomerCost() * weekendsNumber)
+							+ hotel.getWeekdayRegularCustomerCost() * weekdaysNumber))
+					.min()
+					.orElse(Double.MAX_VALUE);
+			
+			cheapestHotel = hotelList.stream()
+					.filter(hotel -> (hotel.getWeekendRegularCustomerCost() * weekendsNumber
+							+ hotel.getWeekdayRegularCustomerCost() * weekdaysNumber) == cheapestPrice)
+					.collect(Collectors.toCollection(ArrayList::new));
+		}
+		else if(customerType.equalsIgnoreCase("Reward")){
+			cheapestPrice = hotelList.stream()
+					.mapToDouble(hotel -> ((hotel.getWeekendRewardCustomerCost() * weekendsNumber)
+							+ hotel.getWeekdayRewardCustomerCost() * weekdaysNumber))
+					.min()
+					.orElse(Double.MAX_VALUE);
+			
+			cheapestHotel = hotelList.stream()
+					.filter(hotel -> (hotel.getWeekendRewardCustomerCost() * weekendsNumber
+							+ hotel.getWeekdayRewardCustomerCost() * weekdaysNumber) == cheapestPrice)
+					.collect(Collectors.toCollection(ArrayList::new));
+		}
 
 		if (cheapestPrice != Double.MAX_VALUE) {
 			Iterator<Hotel> iterator = cheapestHotel.iterator();
@@ -97,9 +113,9 @@ public class HotelReservation implements HotelReservationIF {
 		return null;
 	}
 
-	public Hotel getCheapestBestRatedHotel(LocalDate startDate, LocalDate endDate) {
+	public Hotel getCheapestBestRatedHotel(String customerType, LocalDate startDate, LocalDate endDate) {
 
-		ArrayList<Hotel> cheapestHotels = getCheapestHotel(startDate, endDate);
+		ArrayList<Hotel> cheapestHotels = getCheapestHotel(customerType, startDate, endDate);
 		Optional<Hotel> sortedHotelList = cheapestHotels.stream()
 				.max(Comparator.comparing(Hotel::getRating));
 
@@ -108,17 +124,26 @@ public class HotelReservation implements HotelReservationIF {
 		return sortedHotelList.get();
 	}
 
-	public Hotel getBestRatedHotel(LocalDate startDate, LocalDate endDate) {
+	public Hotel getBestRatedHotel(String customerType, LocalDate startDate, LocalDate endDate) {
 
 		ArrayList<Integer> durationDetails = getDurationOfStayDetails(startDate, endDate);
 		int weekdaysNumber = durationDetails.get(0);
 		int weekendsNumber = durationDetails.get(1);
+		double totalPrice;
 
 		Optional<Hotel> sortedHotelList = hotelList.stream()
 				.max(Comparator.comparing(Hotel::getRating));
+		
+		if(customerType.equalsIgnoreCase("Regular")) {
+			
+			totalPrice = weekdaysNumber * sortedHotelList.get().getWeekdayRegularCustomerCost()
+					+ weekendsNumber * sortedHotelList.get().getWeekendRegularCustomerCost();
+		}
+		else {
+			totalPrice = weekdaysNumber * sortedHotelList.get().getWeekdayRewardCustomerCost()
+					+ weekendsNumber * sortedHotelList.get().getWeekendRewardCustomerCost();
+		}
 
-		double totalPrice = weekdaysNumber * sortedHotelList.get().getWeekdayRegularCustomerCost()
-				+ weekendsNumber * sortedHotelList.get().getWeekendRegularCustomerCost();
 
 		System.out.println("Best Rated Hotel : \n" + sortedHotelList.get().getHotelName() + ", Rating : "
 				+ sortedHotelList.get().getRating() + ", Total Rates: " + totalPrice);
