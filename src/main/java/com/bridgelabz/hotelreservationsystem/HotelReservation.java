@@ -29,6 +29,10 @@ public class HotelReservation implements HotelReservationIF {
 	public void printHotelList() {
 		System.out.println(hotelList);
 	}
+	
+	public ArrayList<Hotel> getHotelList(){
+		return hotelList;
+	}
 
 	public Hotel getCheapestHotel(LocalDate startDate, LocalDate endDate) {
 
