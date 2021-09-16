@@ -71,32 +71,32 @@ public class HotelReservationTest {
 	}
 
 	@Test
-	public void givenHotelDetails_shouldReturnCheapestHotel() {
+	public void givenHotelDetails_WhenRegularCustomer_shouldReturnCheapestHotel() {
 
 		HotelReservation hotelReservation = new HotelReservation();
 		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
 		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
 		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
 		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
-		ArrayList<Hotel> hotel = hotelReservation.getCheapestHotel(startDate, endDate);
+		ArrayList<Hotel> hotel = hotelReservation.getCheapestHotel("regular", startDate, endDate);
 		String hotelName = hotel.get(0).getHotelName() + " " + hotel.get(1).getHotelName();
 		Assert.assertEquals("Lakewood Bridgewood", hotelName);
 	}
 
 	@Test
-	public void givenHotelDetails_WhenHotelPricesAreSame_shouldReturnHighestRatedHotel() {
+	public void givenHotelDetails_WhenRegularCustomerAndHotelPricesAreSame_shouldReturnHighestRatedHotel() {
 
 		HotelReservation hotelReservation = new HotelReservation();
 		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
 		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
 		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
 		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
-		Hotel hotel = hotelReservation.getCheapestBestRatedHotel(startDate, endDate);
+		Hotel hotel = hotelReservation.getCheapestBestRatedHotel("regular", startDate, endDate);
 		Assert.assertEquals("Bridgewood", hotel.getHotelName());
 	}
 
 	@Test
-	public void givenHotelDetails_shouldReturnHighestRatedHotel() {
+	public void givenHotelDetails_WhenRegularCustomer_ShouldReturnHighestRatedHotel() {
 
 		HotelReservation hotelReservation = new HotelReservation();
 		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
@@ -104,7 +104,45 @@ public class HotelReservationTest {
 		hotelReservation.addHotel("Ridgewood", 5, 220, 150, 100, 40);
 		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
 		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
-		Hotel hotel = hotelReservation.getBestRatedHotel(startDate, endDate);
+		Hotel hotel = hotelReservation.getBestRatedHotel("regular", startDate, endDate);
+		Assert.assertEquals("Ridgewood", hotel.getHotelName());
+	}
+	
+	@Test
+	public void givenHotelDetails_WhenRewardCustomer_ShouldReturnCheapestHotel() {
+
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
+		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
+		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
+		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
+		ArrayList<Hotel> hotel = hotelReservation.getCheapestHotel("reward", startDate, endDate);
+		String hotelName = hotel.get(0).getHotelName() + " " + hotel.get(1).getHotelName();
+		Assert.assertEquals("Lakewood Bridgewood", hotelName);
+	}
+
+	@Test
+	public void givenHotelDetails_WhenRewardCustomerAndHotelPricesAreSame_ShouldReturnHighestRatedHotel() {
+
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
+		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
+		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
+		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
+		Hotel hotel = hotelReservation.getCheapestBestRatedHotel("reward", startDate, endDate);
+		Assert.assertEquals("Bridgewood", hotel.getHotelName());
+	}
+
+	@Test
+	public void givenHotelDetails_WhenRewardCustomer_ShouldReturnHighestRatedHotel() {
+
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
+		hotelReservation.addHotel("Bridgewood", 4, 150, 50, 110, 50);
+		hotelReservation.addHotel("Ridgewood", 5, 220, 150, 100, 40);
+		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
+		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);
+		Hotel hotel = hotelReservation.getBestRatedHotel("reward", startDate, endDate);
 		Assert.assertEquals("Ridgewood", hotel.getHotelName());
 	}
 }
