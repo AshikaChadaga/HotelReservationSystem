@@ -49,7 +49,7 @@ public class Hotel {
 	public double getWeekendRegularCustomerCost() {
 		return weekendRegularCustomerCost;
 	}
-	
+
 	public void setWeekendRegularCustomerCost(double weekendRegularCustomerCost) {
 		this.weekendRegularCustomerCost = weekendRegularCustomerCost;
 	}
@@ -57,15 +57,15 @@ public class Hotel {
 	public double getWeekdayRewardCustomerCost() {
 		return weekdayRewardCustomerCost;
 	}
-	
+
 	public void setWeekdayRewardCustomerCost(double weekdayRewardCustomerCost) {
 		this.weekdayRewardCustomerCost = weekdayRewardCustomerCost;
 	}
-	
+
 	public double getWeekendRewardCustomerCost() {
 		return weekendRewardCustomerCost;
 	}
-	
+
 	public void setWeekendRewardCustomerCost(double weekendRewardCustomerCost) {
 		this.weekendRewardCustomerCost = weekendRewardCustomerCost;
 	}
@@ -73,8 +73,9 @@ public class Hotel {
 	@Override
 	public String toString() {
 		return "Hotels [hotelName=" + hotelName + ", rating=" + rating + ", Regular Customer WeekDay Cost="
-				+ weekdayRegularCustomerCost + "Regular Customer WeekDay Cost=" + weekdayRegularCustomerCost + ", Reward Customer WeekDay Cost="
-						+ weekdayRewardCustomerCost + "Reward Customer WeekDay Cost=" + weekendRewardCustomerCost + "]\n";
+				+ weekdayRegularCustomerCost + "Regular Customer WeekDay Cost=" + weekdayRegularCustomerCost
+				+ ", Reward Customer WeekDay Cost=" + weekdayRewardCustomerCost + "Reward Customer WeekDay Cost="
+				+ weekendRewardCustomerCost + "]\n";
 	}
 
 }
